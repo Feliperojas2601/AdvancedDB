@@ -4,19 +4,19 @@ import random
 fake = Faker()
 
 def taskPais(i, __):
-    pais = (
-        "Estados Unidos",
-        "Canadá",
-        "México",
-        "Argentina",
-        "Brasil",
-        "Chile",
-        "Colombia",
-        "España",
-        "Francia",
-        "Alemania",
-        "Italia",
-        "Reino Unido"
+    pais = (       
+    "United States",
+    "Canada",
+    "Mexico",
+    "Argentina",
+    "Brazil",
+    "Chile",
+    "Colombia",
+    "Spain",
+    "France",
+    "Germany",
+    "Italy",
+    "United Kingdom"
     )[i % 12]
     return f'''
         INSERT INTO pais (nombre) VALUES ('{pais}');
@@ -123,10 +123,11 @@ def taskEmpresa(___, volumen):
     web_empresa = fake.url()
     tipo_empresa_id = fake.random_int(min=1, max=2) 
     sector_empresa_id = fake.random_int(min=1, max=8)
-    return f'''
-        INSERT INTO empresa (nombre, correo, web, tipoEmpresaId, sectorId)
-        VALUES ('{nombre_empresa}', '{correo_empresa}', '{web_empresa}', {tipo_empresa_id}, {sector_empresa_id});
-    '''
+    descripcion = fake.text(max_nb_chars=1000)
+    return '''
+        INSERT INTO empresa (nombre, correo, web, tipoEmpresaId, sectorId, descripcion)
+        VALUES ('{nombre_empresa}', '{correo_empresa}', '{web_empresa}', {tipo_empresa_id}, {sector_empresa_id}, '{descripcion}');
+    '''.format(nombre_empresa=nombre_empresa.replace("'", "''"), correo_empresa=correo_empresa, web_empresa=web_empresa, tipo_empresa_id=tipo_empresa_id, sector_empresa_id=sector_empresa_id, descripcion=descripcion.replace("'", "''"))
 
 
 trabajos = [
